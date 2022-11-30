@@ -1,18 +1,17 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Header.module.css'
 
 function Logo() {
   return (
-    <div className="w-1/2">
-        <h1 >Pokedéx</h1>
+    <div className="col-span-3">
+        <h1 className={styles.logo}>Pokedéx</h1>
+        <p className={styles.flavourText}>Search for Pokémon by name or using the National Pokédex number</p>
     </div>
   )
 }
 
 function SearchBar() {
   return (
-    <div className="font-mono w-1/2">
+    <div className="col-span-2 self-end">
         <h5>SearchBar</h5>
     </div>
   )
@@ -20,11 +19,9 @@ function SearchBar() {
 
 function Header() {
   return (
-    <div className="w-3/5 flex justify-center">
-      <div>
-        <Logo />
-        <SearchBar />
-      </div>
+    <div className="grid grid-cols-5 gap-0 mt-5">
+      <Logo />
+      <SearchBar />
     </div>
   )
 }

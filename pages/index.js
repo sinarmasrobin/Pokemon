@@ -1,4 +1,6 @@
 import styles from '../styles/Header.module.css'
+import { useState, useEffect } from 'react'
+import ReactPaginate from 'react-paginate'
 
 function Logo() {
   return (
@@ -26,10 +28,46 @@ function Header() {
   )
 }
 
-export default function Home() {
+function Pokemons(limit, offset) {
+  const [data, setData] = useState(null)
+  const [isLoading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    fetch('https://pokeapi.co/api/v2/pokemon/' + '?limit=' + limit + '&offset=' + (offset-1))
+    .then((response) => response.json())
+    .then((data) => {
+      setData(data)
+      setLoading(false)
+      console.log(data)
+    })
+  }, [])
+
+  if (isLoading) return <p>Loading...</p>
+  if (!data) return <p>No profile data</p>
+
   return (
     <div>
-      <Header />
+      <h1>{data.results.map((pokemon) => {
+        return (
+          <p>{pokemon.name}, {pokemon.url}</p>
+        )
+      })}</h1>
     </div>
   )
 }
+
+export default function Home() {
+  return (
+    <div>
+      <div>
+        <Header />
+      </div>
+      <div>
+        {Pokemons(20,1)}
+      </div>
+    </div>
+  )
+}
+
+Home.getInitialProps

@@ -28,13 +28,13 @@ function Header() {
   )
 }
 
-function Pokemons(limit, offset) {
+function FetchPokemons(limit, page) {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
-    fetch('https://pokeapi.co/api/v2/pokemon/' + '?limit=' + limit + '&offset=' + (offset-1))
+    fetch('https://pokeapi.co/api/v2/pokemon/' + '?limit=' + limit + '&offset=' + (limit * page))
     .then((response) => response.json())
     .then((data) => {
       setData(data)
@@ -44,7 +44,7 @@ function Pokemons(limit, offset) {
   }, [])
 
   if (isLoading) return <p>Loading...</p>
-  if (!data) return <p>No profile data</p>
+  if (!data) return <p>No Pokemon data</p>
 
   return (
     <div>
@@ -57,17 +57,69 @@ function Pokemons(limit, offset) {
   )
 }
 
-export default function Home() {
+function DisplayPokemons(pokemons) {
+  return (
+    <div className="grid grid-cols-4 gap-2">
+      {pokemons.map((pokemon) => {
+        return (
+          <div className="col-auto">
+            <p>{pokemon.name}, {pokemon.url}</p>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function paginationHandler(page) {
+
+}
+
+export default function Home(props) {
+  // function changePage(limit, page) {
+  //   {content} = FetchPokemons(limit, limit * page);
+  // }
+  let content = FetchPokemons(20, 20)
   return (
     <div>
       <div>
         <Header />
       </div>
-      <div>
-        {Pokemons(20,1)}
+      <div id="content">
+        {DisplayPokemons(props.pokemons)}
       </div>
+      <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={'...'}
+          breakClassName={'break-me'}
+          activeClassName={'active'}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+
+          initialPage={props.currentPage - 1}
+          pageCount={props.pageCount}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+          onPageChange={paginationHandler}
+      />
     </div>
   )
 }
 
-Home.getInitialProps
+//Fetching posts in get Intial Props to make the app seo friendly
+Home.getInitialProps = async ({ query }) => {
+  const page = query.page || 1; //if page empty we request the first page
+  const pokemons = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0');
+  const pokemonsJson = await pokemons.json();
+  const pokemonCount = await fetch('https://pokeapi.co/api/v2/pokemon-species/?limit=0');
+  const pokemonCountJson = await pokemonCount.json();
+  console.log(pokemonsJson.results);
+  console.log(pokemonCountJson.count);
+  return {
+      pokemons: pokemonsJson.results,
+      pokemonCount: pokemonCountJson.count,
+      currentPage: 1,
+      pageCount: Math.floor(pokemonCount/20)
+  };
+}

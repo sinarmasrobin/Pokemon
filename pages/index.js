@@ -1,40 +1,15 @@
 import styles from '../styles/Header.module.css'
-import { useState, useEffect } from 'react'
-import ReactPaginate from 'react-paginate'
+import React, { useState, useEffect } from 'react'
+import Pokemons from '../components/organisms/pokemons'
+import Header from '../components/organisms/header'
 
-function Logo() {
-  return (
-    <div className="col-span-3">
-        <h1 className={styles.logo}>Pokedéx</h1>
-        <p className={styles.flavourText}>Search for Pokémon by name or using the National Pokédex number</p>
-    </div>
-  )
-}
-
-function SearchBar() {
-  return (
-    <div className="col-span-2 self-end">
-        <h5>SearchBar</h5>
-    </div>
-  )
-}
-
-function Header() {
-  return (
-    <div className="grid grid-cols-5 gap-0 mt-5">
-      <Logo />
-      <SearchBar />
-    </div>
-  )
-}
-
-function Pokemons(limit, offset) {
+function FetchPokemons(limit, page) {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
     setLoading(true)
-    fetch('https://pokeapi.co/api/v2/pokemon/' + '?limit=' + limit + '&offset=' + (offset-1))
+    fetch('https://pokeapi.co/api/v2/pokemon/' + '?limit=' + limit + '&offset=' + (limit * page))
     .then((response) => response.json())
     .then((data) => {
       setData(data)
@@ -44,7 +19,7 @@ function Pokemons(limit, offset) {
   }, [])
 
   if (isLoading) return <p>Loading...</p>
-  if (!data) return <p>No profile data</p>
+  if (!data) return <p>No Pokemon data</p>
 
   return (
     <div>
@@ -57,17 +32,16 @@ function Pokemons(limit, offset) {
   )
 }
 
-export default function Home() {
+function Home() {
   return (
     <div>
-      <div>
-        <Header />
-      </div>
-      <div>
-        {Pokemons(20,1)}
-      </div>
+      <Header />
+      <Pokemons 
+        limit={20}
+        offset={0}
+      />
     </div>
   )
 }
 
-Home.getInitialProps
+export default Home;

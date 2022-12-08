@@ -1,6 +1,6 @@
 function SearchBar() {
     return (
-      <div className="col-span-2 self-end">
+      <div>
           <h5>SearchBar</h5>
       </div>
     )

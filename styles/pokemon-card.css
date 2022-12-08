@@ -1,0 +1,6 @@
+.pokemon-card {
+    background-image: url("../assets/pokemon-svgrepo-com.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+}

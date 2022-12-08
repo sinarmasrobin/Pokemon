@@ -3,6 +3,8 @@ import ReactPaginate from "react-paginate";
 import parse from "html-react-parser";
 import TypeBox from "../molecules/typebox";
 import PokemonModal from "../molecules/pokemonmodal";
+import React from "react";
+import Image from 'next/image';
 
 // pokemonTypes is in the form: 
 //     object : {
@@ -75,7 +77,7 @@ function getTypeBackground(pokemonMainType) {
     }
 }
 
-function displayPokemonGrid(pokemonArray) {
+const DisplayPokemonGrid = (pokemonArray) => {
     const [popupState, setPopupState] = useState(false);
     const [pokemonData, setPokemonData] = useState(null);
 
@@ -117,7 +119,7 @@ function displayPokemonGrid(pokemonArray) {
                                 {/* </div> */}
                             </div>
                             {/* <p>{pokemon.stats.map((object) => {return [object.stat.name, object.base_stat].join(': ')}).join('\r\n')}</p> */}
-                            <img src={pokemon.sprites.front_default} className="w-24 h-24 flex-initial shrink-0 justify-self-end self-center" />
+                            <Image src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-initial shrink-0 justify-self-end self-center" />
                                 {/* <img src={pokemon.sprites.front_default}/> */}
                             {/* </div> */}
                         {/* </div> */}
@@ -174,7 +176,7 @@ function Pokemons({limit, offset}) {
     if (pokemonArray) {
         return (
             <div className="flex flex-col">
-                {displayPokemonGrid(pokemonArray)}
+                {DisplayPokemonGrid(pokemonArray)}
                 <ReactPaginate
                     breakLabel="..."
                     nextLabel=">"

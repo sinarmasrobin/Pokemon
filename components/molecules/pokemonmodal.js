@@ -1,6 +1,7 @@
 import React from "react";
 import TypeBox from "./typebox";
 import StatMeter from "../atoms/pokemonStatMeter";
+import Image from 'next/image';
 
 // pokemonTypes is in the form: 
 //     object : {
@@ -86,7 +87,7 @@ function PokemonModal({onClose, visible, pokemon}) {
             <div className="flex grow shrink-0 pokemon-details">
                 <div className="w-1/2 bg-blue-300 flex items-center flex-col py-10 px-12 shrink-0 min-w-44 grow rounded-l-3xl">
                     <p className="text-white text-center text-shadow-black capitalize text-2xl font-extrabold">{pokemon.name}</p>
-                    <img src={pokemon.sprites.front_default} className="w-24 h-24 flex-none shrink-0" />
+                    <Image src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-none shrink-0" />
                     <p className="text-white text-center text-shadow-black mb-2 font-bold">Type</p>
                     {getTypeBoxes(pokemonTypes)}
                     <p className="text-white text-center text-shadow-black my-2 font-bold">Special abilities</p>

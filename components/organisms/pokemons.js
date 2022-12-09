@@ -5,6 +5,7 @@ import TypeBox from "../molecules/typebox";
 import PokemonModal from "../molecules/pokemonmodal";
 import React from "react";
 import Image from 'next/image';
+import getPokemonBackground from "../atoms/pokemonBackground";
 
 // pokemonTypes is in the form: 
 //     object : {
@@ -36,47 +37,6 @@ function getTypeBoxes(typesArray) {
     )
 }
 
-function getTypeBackground(pokemonMainType) {
-    switch(pokemonMainType) {
-        case "normal":
-            return "bg-zinc-400";
-        case "fire":
-            return "bg-orange-500";
-        case "water":
-            return "bg-blue-600";
-        case "grass":
-            return "bg-green-500";
-        case "electric":
-            return "bg-yellow-400";
-        case "ice":
-            return "bg-cyan-400";
-        case "fighting":
-            return "bg-red-500";
-        case "poison":
-            return "bg-purple-500";
-        case "ground":
-            return "bg-orange-400";
-        case "flying":
-            return "bg-violet-400";
-        case "psychic":
-            return "bg-pink-500";
-        case "bug":
-            return "bg-lime-500";
-        case "rock":
-            return "bg-orange-500";
-        case "ghost":
-            return "bg-purple-600";
-        case "dark":
-            return "bg-gray-700";
-        case "dragon":
-            return "bg-violet-600";
-        case "steel":
-            return "bg-zinc-600";
-        case "fairy":
-            return "bg-pink-400";
-    }
-}
-
 const DisplayPokemonGrid = (pokemonArray) => {
     const [popupState, setPopupState] = useState(false);
     const [pokemonData, setPokemonData] = useState(null);
@@ -100,7 +60,7 @@ const DisplayPokemonGrid = (pokemonArray) => {
                 return (
                     <button key={pokemon.id}
                     disabled={popupState}
-                    className={"text-white font-bold rounded-2xl p-4 flex w-full h-min pokemon-card hover:brightness-110 " + getTypeBackground(pokemonTypes[0])}
+                    className={"text-white font-bold rounded-2xl p-4 flex w-full h-min pokemon-card hover:brightness-110 " + getPokemonBackground(pokemonTypes[0])}
                     onClick={() => {setPopupState(true), setPokemonData(pokemon)}}>
                         {/* <div className="m-1 grid shrink-0 grow flex-auto w-auto"> */}
                             <div className="shrink-0 grow flex justify-start flex-col w-24 h-min">

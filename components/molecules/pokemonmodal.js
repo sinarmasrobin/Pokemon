@@ -87,7 +87,7 @@ function PokemonModal({onClose, visible, pokemon}) {
     document.body.style.overflow = 'hidden';
 
     return (
-        <div id="background" onClick={handleOnClose} className="grow flex absolute justify-center items-center inset-0 bg-black bg-opacity-50 backdrop-blur-sm h-full w-full z-10">
+        <div id="background" onClick={handleOnClose} className="grow flex fixed justify-center items-center inset-0 bg-black bg-opacity-50 backdrop-blur-sm h-full w-full z-10">
 
             <div className="flex grow shrink-0 pokemon-details">
                 <div className={`w-1/2  flex items-center flex-col py-10 px-12 shrink-0 min-w-44 grow rounded-l-3xl ${getPokemonBackground(pokemonTypes[0])}`}>

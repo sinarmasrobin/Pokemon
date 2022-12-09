@@ -2,6 +2,7 @@ import React from "react";
 import TypeBox from "./typebox";
 import StatMeter from "../atoms/pokemonStatMeter";
 import Image from 'next/image';
+import getPokemonBackground from "../atoms/pokemonBackground";
 
 // pokemonTypes is in the form: 
 //     object : {
@@ -70,9 +71,11 @@ function PokemonModal({onClose, visible, pokemon}) {
     // console.log(onClose, visible, pokemon)
     let pokemonTypes = getTypes(pokemon.types)
     let pokemonAbilities = getAbilities(pokemon)
+    
     const handleOnClose = (event) => {
         if (event.target.id === "background")
         {
+            document.body.style.overflow = 'auto';
             onClose();
         }
     }
@@ -81,11 +84,13 @@ function PokemonModal({onClose, visible, pokemon}) {
         return null;
     }
 
+    document.body.style.overflow = 'hidden';
+
     return (
         <div id="background" onClick={handleOnClose} className="grow flex absolute justify-center items-center inset-0 bg-black bg-opacity-50 backdrop-blur-sm h-full w-full z-10">
 
             <div className="flex grow shrink-0 pokemon-details">
-                <div className="w-1/2 bg-blue-300 flex items-center flex-col py-10 px-12 shrink-0 min-w-44 grow rounded-l-3xl">
+                <div className={`w-1/2  flex items-center flex-col py-10 px-12 shrink-0 min-w-44 grow rounded-l-3xl ${getPokemonBackground(pokemonTypes[0])}`}>
                     <p className="text-white text-center text-shadow-black capitalize text-2xl font-extrabold">{pokemon.name}</p>
                     <Image src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-none shrink-0" />
                     <p className="text-white text-center text-shadow-black mb-2 font-bold">Type</p>

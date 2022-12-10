@@ -2,26 +2,49 @@ import React from "react";
 import TypeBox from "./typebox";
 import StatMeter from "../atoms/pokemonStatMeter";
 import Image from 'next/image';
-import getPokemonBackground from "../atoms/pokemonBackground";
+import getPokemonTypes from "../../functions/getPokemonTypes";
 
-// pokemonTypes is in the form: 
-//     object : {
-//         type : {
-//             [
-//                 {name : String}
-//             ]
-//         }
-//     }
-function getTypes(pokemonTypes) {
-    // console.log(pokemonTypes)
-    return (
-        pokemonTypes.map((object) => {
-            return object.type.name;
-        })
-    )
+function getPokemonBackground(pokemonMainType) {
+    switch(pokemonMainType) {
+        case "normal":
+            return "bg-slate-300";
+        case "fire":
+            return "bg-orange-400";
+        case "water":
+            return "bg-blue-400";
+        case "grass":
+            return "bg-green-400";
+        case "electric":
+            return "bg-yellow-300";
+        case "ice":
+            return "bg-sky-200";
+        case "fighting":
+            return "bg-red-400";
+        case "poison":
+            return "bg-fuchsia-400";
+        case "ground":
+            return "bg-amber-400";
+        case "flying":
+            return "bg-violet-400";
+        case "psychic":
+            return "bg-pink-400";
+        case "bug":
+            return "bg-lime-400";
+        case "rock":
+            return "bg-amber-500";
+        case "ghost":
+            return "bg-purple-400";
+        case "dark":
+            return "bg-neutral-500";
+        case "dragon":
+            return "bg-violet-400";
+        case "steel":
+            return "bg-zinc-300";
+        case "fairy":
+            return "bg-pink-300";
+    }
 }
 
-// e.g. typesArray = ["fire", "dragon"]
 function getTypeBoxes(typesArray) {
     return (
         <div className="flex flex-initial flex-row w-min space-x-2">
@@ -36,7 +59,6 @@ function getTypeBoxes(typesArray) {
 
 // e.g. typesArray = ["fire", "dragon"]
 function getAbilityBoxes(abilities, type) {
-    // console.log(abilities)
     return (
         <div className="flex flex-initial flex-col w-full gap-2">
             {abilities.map((ability) => {
@@ -59,7 +81,6 @@ function getAbilities(pokemon) {
 function getStatMeters(pokemon) {
     return (pokemon.stats.map((object) => {
             let percent = Math.floor(parseInt(object.base_stat)*100/150).toString()
-            // console.log(percent)
             return <StatMeter key={pokemon.stats.indexOf(object)} statName={object.stat.name} value={object.base_stat} percent={percent} />
         })
     )
@@ -69,7 +90,7 @@ function PokemonModal({onClose, visible, pokemon}) {
     console.log(pokemon)
     // console.log(getAbilities(pokemon))
     // console.log(onClose, visible, pokemon)
-    let pokemonTypes = getTypes(pokemon.types)
+    let pokemonTypes = getPokemonTypes(pokemon)
     let pokemonAbilities = getAbilities(pokemon)
     
     const handleOnClose = (event) => {
@@ -88,7 +109,6 @@ function PokemonModal({onClose, visible, pokemon}) {
 
     return (
         <div id="background" onClick={handleOnClose} className="grow flex fixed justify-center items-center inset-0 bg-black bg-opacity-50 backdrop-blur-sm h-full w-full z-10">
-
             <div className="flex grow shrink-0 pokemon-details">
                 <div className={`w-1/2  flex items-center flex-col py-10 px-12 shrink-0 min-w-44 grow rounded-l-3xl ${getPokemonBackground(pokemonTypes[0])}`}>
                     <p className="text-white text-center text-shadow-black capitalize text-2xl font-extrabold">{pokemon.name}</p>

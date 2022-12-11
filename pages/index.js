@@ -12,7 +12,7 @@ function Home() {
 
   function searchNameOrNumber(data) {
     function hasNameOrNumber(pokemon) {
-      return pokemon.id === data || pokemon.name === data
+      return pokemon.id === parseInt(data) || pokemon.name === data
     }
     if (!data) {
       setDisplayPokemons(pokemons)

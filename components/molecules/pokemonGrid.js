@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
-import parse from "html-react-parser";
+import { useState } from "react";
 import TypeBox from "../molecules/typebox";
 import PokemonModal from "../molecules/pokemonmodal";
 import React from "react";
@@ -67,19 +65,17 @@ function PokemonGrid({pokemonArray}) {
 
     const handleOnClose = () => setPopupState(false);
 
-    // console.log(pokemonArray)
     return (
         <div className="z-0">
             {popupState ? <PokemonModal onClose={handleOnClose} pokemon={pokemonData} visible={true} /> : null}
             <div className="grid grid-cols-1 gap-4 place-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {pokemonArray.map((pokemon) => {
-                let statsHTML = pokemon.stats.map((object) => {return '<p>' + [object.stat.name, object.base_stat].join(': ') + '</p>'}).join('')
                 let pokemonTypes = getPokemonTypes(pokemon)
                 return (
                     <button key={pokemon.id}
                     className={`text-white font-bold rounded-2xl p-4 flex w-full h-min pokemon-card hover:brightness-110 ${getPokemonBackground(pokemonTypes[0])} `}
                     onClick={() => {
-                        setPopupState(true), setPokemonData(pokemon), console.log('thisworks')}}>
+                        setPopupState(true), setPokemonData(pokemon)}}>
                             <div className="shrink-0 grow flex justify-start flex-col w-24 h-min">
                                     <p className="text-left text-base font-semibold text-gray-700 font-sans">#{pokemon.id}</p>
                                     <p className="text-left text-3xl font-bold text-white grow truncate text-shadow-grey font-sans capitalize">{pokemon.name}</p>
@@ -87,7 +83,7 @@ function PokemonGrid({pokemonArray}) {
                                         {getTypeBoxes(pokemonTypes)}
                                     </div>
                             </div>
-                            <Image src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-initial shrink-0 justify-self-end self-center" />
+                            <Image alt={`Image of ${pokemon.name}`} src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-initial shrink-0 justify-self-end self-center" />
                     </button>
                 )
             })}

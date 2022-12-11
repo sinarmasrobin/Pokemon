@@ -80,16 +80,13 @@ function getAbilities(pokemon) {
 
 function getStatMeters(pokemon) {
     return (pokemon.stats.map((object) => {
-            let percent = Math.floor(parseInt(object.base_stat)*100/150).toString()
-            return <StatMeter key={pokemon.stats.indexOf(object)} statName={object.stat.name} value={object.base_stat} percent={percent} />
+            let percentage = (object.base_stat*100/150) | 0
+            return <StatMeter key={pokemon.stats.indexOf(object)} statName={object.stat.name} value={object.base_stat} percent={percentage} />
         })
     )
 }
 
 function PokemonModal({onClose, visible, pokemon}) {
-    console.log(pokemon)
-    // console.log(getAbilities(pokemon))
-    // console.log(onClose, visible, pokemon)
     let pokemonTypes = getPokemonTypes(pokemon)
     let pokemonAbilities = getAbilities(pokemon)
     
@@ -112,7 +109,7 @@ function PokemonModal({onClose, visible, pokemon}) {
             <div className="flex grow shrink-0 pokemon-details">
                 <div className={`w-1/2  flex items-center flex-col py-10 px-12 shrink-0 min-w-44 grow rounded-l-3xl ${getPokemonBackground(pokemonTypes[0])}`}>
                     <p className="text-white text-center text-shadow-black capitalize text-2xl font-extrabold">{pokemon.name}</p>
-                    <Image src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-none shrink-0" />
+                    <Image alt={`Image of ${pokemon.name}`} src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-none shrink-0" />
                     <p className="text-white text-center text-shadow-black mb-2 font-bold">Type</p>
                     {getTypeBoxes(pokemonTypes)}
                     <p className="text-white text-center text-shadow-black my-2 font-bold">Special abilities</p>

@@ -1,10 +1,12 @@
-import styles from '../../styles/Header.module.css'
+function Logo({dataFunction}) {
+  const onClickHandler = (event) => {
+    dataFunction("");
+};
 
-function Logo() {
     return (
-      <div>
-          <h1 className={"m-0  "+ styles.logo}>Pokedéx</h1>
-          <p className={styles.flavourText}>Search for Pokémon by using the name or their National Pokédex number</p>
+      <div className="w-full">
+          <h1 className="text-5xl mb-2 hover:cursor-pointer w-min" onClick={onClickHandler}>Pokedéx</h1>
+          <p className="text-sm text-neutral-500">Search for Pokémon by using the name or their National Pokédex number</p>
       </div>
     )
 }

@@ -2,7 +2,6 @@ import PokemonTypeBox from "../atoms/pokemonTypeBox.js";
 import PokemonAbilityBox from "../atoms/pokemonAbilityBox.js";
 
 function TypeBox({type, optText}) {
-    // console.log(type, optText)
     switch(type) {
         case "normal":
             return ( optText === undefined ? <PokemonTypeBox type={type} backgroundColor={"bg-slate-400"} />

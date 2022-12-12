@@ -2,8 +2,9 @@ import { useState } from "react";
 import TypeBox from "../molecules/typebox";
 import PokemonModal from "../molecules/pokemonmodal";
 import React from "react";
-import Image from 'next/image';
+import Image from "next/image";
 import getPokemonTypes from "../../functions/getPokemonTypes";
+import EmptyImage from "../../assets/empty.png";
 
 function getPokemonBackground(pokemonMainType) {
     switch(pokemonMainType) {
@@ -83,7 +84,7 @@ function PokemonGrid({pokemonArray}) {
                                         {getTypeBoxes(pokemonTypes)}
                                     </div>
                             </div>
-                            <Image alt={`Image of ${pokemon.name}`} src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-initial shrink-0 justify-self-end self-center" />
+                            <Image alt={`Image of ${pokemon.name}`} src={pokemon.sprites.front_default ? pokemon.sprites.front_default : EmptyImage} width={96} height={96} className="w-24 h-24 flex-initial shrink-0 justify-self-end self-center" />
                     </button>
                 )
             })}

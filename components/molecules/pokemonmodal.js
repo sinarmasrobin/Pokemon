@@ -3,6 +3,7 @@ import TypeBox from "./typebox";
 import StatMeter from "../atoms/pokemonStatMeter";
 import Image from 'next/image';
 import getPokemonTypes from "../../functions/getPokemonTypes";
+import EmptyImage from "../../assets/empty.png";
 
 function getPokemonBackground(pokemonMainType) {
     switch(pokemonMainType) {
@@ -109,7 +110,7 @@ function PokemonModal({onClose, visible, pokemon}) {
             <div className="flex grow shrink-0 pokemon-details">
                 <div className={`w-1/2  flex items-center flex-col py-10 px-12 shrink-0 min-w-44 grow rounded-l-3xl ${getPokemonBackground(pokemonTypes[0])}`}>
                     <p className="text-white text-center text-shadow-black capitalize text-2xl font-extrabold">{pokemon.name}</p>
-                    <Image alt={`Image of ${pokemon.name}`} src={pokemon.sprites.front_default} width={96} height={96} className="w-24 h-24 flex-none shrink-0" />
+                    <Image alt={`Image of ${pokemon.name}`} src={pokemon.sprites.front_default ? pokemon.sprites.front_default : EmptyImage} width={96} height={96} className="w-24 h-24 flex-none shrink-0" />
                     <p className="text-white text-center text-shadow-black mb-2 font-bold">Type</p>
                     {getTypeBoxes(pokemonTypes)}
                     <p className="text-white text-center text-shadow-black my-2 font-bold">Special abilities</p>

@@ -8,7 +8,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-
+      gridTemplateColumns: {
+        '15': 'repeat(15, minmax(0, 1fr))'
+      },
+      gridColumn: {
+        'span-13': 'span 13 / span 13',
+        'span-14': 'span 14 / span 14',
+        'span-15': 'span 15 / span 15',
+      }
     },
   },
   plugins: [],

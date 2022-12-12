@@ -81,8 +81,7 @@ function getAbilities(pokemon) {
 
 function getStatMeters(pokemon) {
     return (pokemon.stats.map((object) => {
-            let percentage = (object.base_stat*100/150) | 0
-            return <StatMeter key={pokemon.stats.indexOf(object)} statName={object.stat.name} value={object.base_stat} percent={percentage} />
+            return <StatMeter key={pokemon.stats.indexOf(object)} statName={object.stat.name} value={object.base_stat} />
         })
     )
 }

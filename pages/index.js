@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Pokemons from '../components/organisms/pokemons'
-import Header from '../components/organisms/header'
+import Logo from "../components/molecules/logo";
+import SearchBar from "../components/molecules/searchbar";
 
 function Home() {
+  console.log("ran once")
   const [loading, setLoading] = useState(true);
   const [pokemons, setPokemons] = useState([]);
   const [displayPokemons, setDisplayPokemons] = useState([]);
@@ -14,6 +16,7 @@ function Home() {
     function hasNameOrNumber(pokemon) {
       return pokemon.id === parseInt(data) || pokemon.name === data
     }
+
     if (!data) {
       setDisplayPokemons(pokemons)
     }
@@ -53,7 +56,10 @@ function Home() {
   return (
     <div className="flex justify-center">
       <div className="max-w-7xl grow w-auto my-8 mx-4">
-        <Header dataFunction={searchNameOrNumber} />
+        <div className="flex flex-col my-5 md:flex-row gap-5">
+          <Logo className="w-3/5" dataFunction={searchNameOrNumber} />
+          <SearchBar className="w-2/5" dataFunction={searchNameOrNumber} />
+        </div>
         { loading || displayPokemons.length == 0 ? 
           <p>{statusMessage}</p> : 
           <Pokemons
